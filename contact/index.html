@@ -1,6 +1,39 @@
-<nav>
-  <a href="/">Home</a><br/>
-  <a href="/projects/">Projects</a><br/>
-  <a href="/contact/">Contact</a><br/>
-  <a href="https://github.com/LeDoesCS" target="_blank" rel="noopener">Profile</a><br/>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <nav>
+    <a href="../">Home</a>
+    <a href="../projects/">Projects</a>
+    <a href="../contact/" class="active">Contact</a>
+    <a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+
+  <main>
+    <h1>Contact</h1>
+
+    <form action="mailto:lreh@ucsd.edu" method="POST" enctype="text/plain">
+      <label>
+        Email
+        <input name="email" type="email" value="student@example.com" required />
+      </label>
+
+      <label>
+        Subject
+        <input name="subject" value="Hello from your site" required />
+      </label>
+
+      <label>
+        Message
+        <textarea name="body" rows="6">Just trying the form. This should appear in the message body.</textarea>
+      </label>
+
+      <button>Submite</button>
+    </form>
+  </main>
+</body>
+</html>
