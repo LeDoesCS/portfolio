@@ -188,3 +188,101 @@ input:focus, textarea:focus, button:focus-visible {
   .resume #skills + ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .resume #education article ul { grid-template-columns: repeat(2, minmax(0, 1fr)); display: grid; gap: .5rem 2rem; }
 }
+
+
+html {
+  color-scheme: light dark;
+  background: canvas;
+  color: canvastext;
+}
+:root { --nav-border: oklch(50% 10% 200 / 40%); }
+
+
+nav { border-bottom: 1px solid var(--nav-border); }
+form input[type="email"],
+form input[type="text"],
+form textarea { border: 1px solid var(--nav-border); }
+form button { border: 1px solid var(--nav-border); }
+.resume article { border-bottom: 1px solid var(--nav-border); }
+
+nav a:hover,
+nav a:focus-visible {
+  border-bottom: .4em solid var(--color-accent);
+  padding-bottom: .1em;
+  background: color-mix(in oklch, var(--color-accent), canvas 85%);
+}
+
+.color-scheme {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
+  font-size: 0.875rem;
+  z-index: 1000;
+}
+
+input, textarea, button, select { font: inherit; line-height: 1.5; }
+
+.color-scheme select {
+  padding: .25rem .5rem;
+  border: 1px solid var(--nav-border);
+  border-radius: .375rem;
+  background: canvas;
+  color: canvastext;
+}
+
+@media (max-width: 38rem) {
+  body { padding-top: 3rem; }
+}
+
+
+form label { color: canvastext; }
+
+form input[type="email"],
+form input[type="text"],
+form textarea,
+form button {
+  background: canvas;
+  color: canvastext;
+  border: 1px solid var(--nav-border);
+  box-shadow: none;
+}
+
+form ::placeholder {
+  color: color-mix(in oklch, canvastext, canvas 60%);
+  opacity: 1;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-accent);
+}
+
+input:invalid,
+textarea:invalid {
+  background: canvas;
+  box-shadow: none;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: canvastext;
+  transition: background-color 10000s ease-in-out 0s;
+  box-shadow: 0 0 0px 1000px canvas inset;
+  border-color: var(--nav-border);
+}
+
+form button {
+  background: color-mix(in oklch, canvas, canvastext 10%);
+  color: canvastext;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+form button:hover {
+  background: color-mix(in oklch, canvas, canvastext 18%);
+}
+form button:active {
+  background: color-mix(in oklch, canvas, canvastext 26%);
+}

@@ -5,36 +5,24 @@
   <title>Contact</title>
   <link rel="stylesheet" href="../style.css" />
 </head>
+<script type="module" src="../global.js"></script>
 <body>
-  <nav>
-    <a href="../">Home</a><br/>
-    <a href="../projects/index.html">Projects</a><br/>
-    <a href="../contact/index.html" class="active">Contact</a><br/>
-    <a href="../Resume/index.html">Resume</a><br/>
-    <a href="https://github.com/LeDoesCS" target="_blank" rel="noopener">Profile</a><br/>
-</nav>
-
   <main>
     <h1>Contact</h1>
 
-    <form action="mailto:lereh80@gmail.com" method="POST" enctype="text/plain">
-      <label>
-        Email
-        <input name="email" type="email" required />
-      </label>
+    <form id="contact" action="mailto:lereh80@gmail.com">
+  <label>
+    Subject:
+    <input name="subject" type="text" required placeholder="" />
+  </label>
 
-      <label>
-        Subject
-        <input name="subject" required />
-      </label>
+  <label>
+    Message:
+    <textarea name="body" required placeholder=""></textarea>
+  </label>
 
-      <label>
-        Message
-        <textarea name="body" rows="1"></textarea>
-      </label>
-
-      <button>Submit</button>
-    </form>
+  <button>Send</button>
+</form>
   </main>
 </body>
 </html>
