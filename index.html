@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Le Reh: Personal site and portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <title>Le Reh: Personal site and portfolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<script type="module" src="./global.js"></script>
 <body>
+  <h1>Le Reh</h1>
+  <p>
+    Hi, my name is Le (Pronounced Lee) and I'm a 4th year data science minor at UCSD…
+  </p>
 
-<h1> Le Reh </h1>
-<p>Hi, my name is Le (Pronounced Lee) and I'm a 4th year data science minor at ucsd. I dabble in hitting the gym, sleeping, music, games, and fashion! I'm super exited about learning to make my own website and visualizations that represent me!</p>
-<img src="images/IMG_1621.JPG" alt="picture of me in a dimly lit room with a red led light overhead and i'm looking off into the distance mysteriously, super tuff picture" width="800" height="600">
+  <img
+    src="images/IMG_1621.JPG"
+    alt="picture of me in a dimly lit room with a red LED light overhead, looking off into the distance"
+    width="800" height="600"
+  />
+
+  <section>
+    <h2>Latest Projects</h2>
+    <div class="projects"></div>
+  </section>
+
+  <section>
+  <div class="projects"></div>
+  <p class="more-projects"><a href="./projects/">See all projects →</a></p>
+</section>
+
+<section>
+  <h2>GitHub</h2>
+  <div id="profile-stats" class="stats-card"></div>
+</section>
+
+  <script type="module" src="./global.js"></script>
+  <script type="module" src="./index.js"></script>
 </body>
 </html>

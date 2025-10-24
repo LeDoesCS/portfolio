@@ -1,5 +1,26 @@
 console.log("IT’S ALIVE!");
 
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    console.log(response);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching or parsing JSON data:", error);
+    return null;
+  }
+}
+
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${encodeURIComponent(username)}`);
+}
+
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
@@ -106,3 +127,58 @@ form?.addEventListener('submit', (e) => {
   const url = form.action + (params.length ? `?${params.join('&')}` : '');
   location.href = url;
 });
+
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  // Validate container
+  if (!(containerElement instanceof Element)) {
+    console.warn('renderProjects: invalid containerElement');
+    return 0;
+  }
+
+  const h = String(headingLevel).toLowerCase();
+  const HEADING = /^h[1-6]$/.test(h) ? h : 'h2';
+
+  containerElement.innerHTML = '';
+
+  if (!Array.isArray(projects) || projects.length === 0) {
+    containerElement.insertAdjacentHTML(
+      'beforeend',
+      '<p class="muted" style="opacity:.75">No projects yet — check back soon!</p>'
+    );
+    return 0;
+  }
+
+  for (const proj of projects) {
+    const article = document.createElement('article');
+
+    const headingEl = document.createElement(HEADING);
+    headingEl.textContent = proj?.title ?? 'Untitled project';
+    article.append(headingEl);
+
+    const src = proj?.image?.trim();
+    if (src) {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = proj?.alt ?? proj?.title ?? 'Project image';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      article.append(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'img-placeholder';
+      ph.setAttribute('aria-hidden', 'true');
+      ph.textContent = 'Image coming soon';
+      article.append(ph);
+    }
+
+    if (proj?.description) {
+      const p = document.createElement('p');
+      p.textContent = proj.description;
+      article.append(p);
+    }
+
+    containerElement.append(article);
+  }
+
+  return projects.length;
+}

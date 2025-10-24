@@ -286,3 +286,26 @@ form button:hover {
 form button:active {
   background: color-mix(in oklch, canvas, canvastext 26%);
 }
+
+.stats-card {
+  border: 1px solid var(--nav-border);
+  border-radius: .5rem;
+  padding: 1rem;
+}
+
+.stats-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .75rem;
+}
+.stats-header img { border-radius: 50%; display: block; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .25rem 1rem;
+  text-align: center;
+}
+.stats-grid dt { grid-row: 1; font-weight: 600; }
+.stats-grid dd { grid-row: 2; margin: 0; font-variant-numeric: tabular-nums; }
