@@ -32,3 +32,36 @@ try {
   setTitle(0);
   placeholder('Error loading projects.');
 }
+
+export const BASE_PATH =
+  (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? "/"   
+    : "/portfolio/"; 
+
+export function toSiteUrl(path) {
+  if (!path) return "";
+  if (/^(https?:)?\/\//i.test(path)) return path;
+  return BASE_PATH + path.replace(/^\/+/, "");
+}
+
+export function renderProjects(projects, containerEl, headingLevel = "h2") {
+  if (!containerEl) return;
+  containerEl.innerHTML = "";
+
+  const tag = /^h[1-6]$/i.test(headingLevel) ? headingLevel : "h2";
+
+  for (const project of projects) {
+    const article = document.createElement("article");
+
+    const imgSrc = project.image
+      ? toSiteUrl(project.image)
+      : "https://dsc106.com/labs/lab02/images/empty.svg";
+
+    article.innerHTML = `
+      <${tag}>${project.title ?? "Untitled project"}</${tag}>
+      <img src="${imgSrc}" alt="${project.title ?? ""}">
+      <p>${project.description ?? ""}</p>
+    `;
+    containerEl.appendChild(article);
+  }
+}

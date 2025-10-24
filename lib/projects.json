@@ -1,7 +1,7 @@
 [
     {
         "title": "Climate Change its affects on Clean Energy.",
-        "image": "../images/p1iamge.JPG",
+        "image": "/portfolio/images/p1iamge.jpg",
         "description": "We ask the question: How does the increase in the number of people affected by natural disasters and the average temperature changes in the world between 1970 and 2020, correlate with the proportion of green energy to total energy that each country consumes?."
     },
     {
@@ -11,7 +11,7 @@
     },
     {
         "title": "League of Legends MVP Analysis",
-        "image": "../images/bb.jpeg",
+        "image": "/portfolio/images/bb.jpeg",
         "description": "League of Legends of one of the most popular games our right now and one of the most popular is history. What helps you succeed at the game? Is it your team? Your role? Your early game performace? This is an analysis on what helps people win."
     },
     {
