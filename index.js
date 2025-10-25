@@ -27,7 +27,6 @@ const profileStats = document.querySelector("#profile-stats");
 
 if (profileStats) {
   try {
-    // ← replace with your GitHub username if different
     const githubData = await fetchGitHubData("LeDoesCS");
 
     if (!githubData) {
