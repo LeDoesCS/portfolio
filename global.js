@@ -182,3 +182,4 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 
   return projects.length;
 }
+

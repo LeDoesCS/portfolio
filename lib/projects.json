@@ -1,17 +1,17 @@
 [
     {
         "title": "Climate Change its affects on Clean Energy.",
-        "image": "/portfolio/images/p1iamge.jpg",
+        "image": "../images/p1iamge.jpg",
         "description": "We ask the question: How does the increase in the number of people affected by natural disasters and the average temperature changes in the world between 1970 and 2020, correlate with the proportion of green energy to total energy that each country consumes?."
     },
     {
         "title": "Median Nutrients Across Stores",
-        "image": "/portfolio/images/nutrients.jpg",
+        "image": "../images/nutrients.jpg",
         "description": "Visualization that compares the median nutrient content per 100 gram of product across Walmart, Target, and Whole Foods. Whole Foods is generally known for offering more nutritionally balanced foods with emphasis on things like fresh foods and healthier alternatives compared to Walmart and Target that tends to emphasize convenience and quantity over quality through greater distributions of processed foods. Which store should you go to?."
     },
     {
         "title": "League of Legends MVP Analysis",
-        "image": "/portfolio/images/bb.jpeg",
+        "image": "../images/bb.jpeg",
         "description": "League of Legends of one of the most popular games our right now and one of the most popular is history. What helps you succeed at the game? Is it your team? Your role? Your early game performace? This is an analysis on what helps people win."
     },
     {
