@@ -33,24 +33,3 @@ try {
   placeholder('Error loading projects.');
 }
 
-export function renderProjects(projects, containerEl, headingLevel = "h2") {
-  if (!containerEl) return;
-  containerEl.innerHTML = "";
-
-  const tag = /^h[1-6]$/i.test(headingLevel) ? headingLevel : "h2";
-
-  for (const project of projects) {
-    const article = document.createElement("article");
-
-    const imgSrc = project.image
-      ? toSiteUrl(project.image)
-      : "https://dsc106.com/labs/lab02/images/empty.svg";
-
-    article.innerHTML = `
-      <${tag}>${project.title ?? "Untitled project"}</${tag}>
-      <img src="${imgSrc}" alt="${project.title ?? ""}">
-      <p>${project.description ?? ""}</p>
-    `;
-    containerEl.appendChild(article);
-  }
-}
