@@ -1,5 +1,17 @@
 console.log("IT’S ALIVE!");
 
+export const BASE_PATH =
+  (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? "/"                       // local dev
+    : "/portfolio/";            // <-- replace with your repo name
+
+export function toSiteUrl(path) {
+  if (!path) return "";
+  // If already absolute (http(s) or protocol-relative), keep as-is
+  if (/^(https?:)?\/\//i.test(path)) return path;
+  // Make it absolute to the site root (works from any page)
+  return BASE_PATH + path.replace(/^\/+/, "");
+}
 export async function fetchJSON(url) {
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -183,3 +195,24 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   return projects.length;
 }
 
+export function renderProjects(projects, containerEl, headingLevel = "h2") {
+  if (!containerEl) return;
+  containerEl.innerHTML = "";
+
+  const tag = /^h[1-6]$/i.test(headingLevel) ? headingLevel : "h2";
+
+  for (const project of projects) {
+    const article = document.createElement("article");
+
+    const imgSrc = project.image
+      ? toSiteUrl(project.image)
+      : "https://dsc106.com/labs/lab02/images/empty.svg";
+
+    article.innerHTML = `
+      <${tag}>${project.title ?? "Untitled project"}</${tag}>
+      <img src="${imgSrc}" alt="${project.title ?? ""}">
+      <p>${project.description ?? ""}</p>
+    `;
+    containerEl.appendChild(article);
+  }
+}
