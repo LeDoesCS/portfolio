@@ -1,61 +1,73 @@
 [
     {
         "title": "Climate Change its affects on Clean Energy.",
+        "year": "2024",
         "image": "/portfolio/images/p1iamge.jpg",
         "description": "We ask the question: How does the increase in the number of people affected by natural disasters and the average temperature changes in the world between 1970 and 2020, correlate with the proportion of green energy to total energy that each country consumes?."
     },
     {
         "title": "Median Nutrients Across Stores",
+        "year": "2025",
         "image": "/portfolio/images/nutrients.jpg",
         "description": "Visualization that compares the median nutrient content per 100 gram of product across Walmart, Target, and Whole Foods. Whole Foods is generally known for offering more nutritionally balanced foods with emphasis on things like fresh foods and healthier alternatives compared to Walmart and Target that tends to emphasize convenience and quantity over quality through greater distributions of processed foods. Which store should you go to?."
     },
     {
         "title": "League of Legends MVP Analysis",
+        "year": "2025",
         "image": "/portfolio/images/bb.jpeg",
         "description": "League of Legends of one of the most popular games our right now and one of the most popular is history. What helps you succeed at the game? Is it your team? Your role? Your early game performace? This is an analysis on what helps people win."
     },
     {
         "title": "Sit fuga ducimus hic?",
+        "year": "2023",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Maxime sed ullam ipsa dolore, natus earum. Laboriosam fuga quidem eligendi sint, quibusdam minus quis, suscipit natus molestias, rerum ipsum esse! Unde animi iste quasi sed optio dolores quaerat magni!"
     },
     {
         "title": "Mollitia eveniet nobis eum.",
+        "year": "2022",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Amet aliquam rerum aperiam sint esse voluptate qui ducimus ratione, minus voluptatibus quod, iure, similique cupiditate ab nulla exercitationem mollitia. Expedita porro veniam, cumque ipsum voluptatibus est eum soluta officiis."
     },
     {
         "title": "Laudantium earum doloribus modi.",
+        "year": "2021",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Natus cupiditate rem nostrum quidem magni veniam beatae ratione omnis, modi deleniti. Rem iusto aperiam ab in. Commodi nemo voluptate fugiat ab repellat amet quia aspernatur, distinctio dolorem, praesentium vitae?"
     },
     {
         "title": "Placeat dolorum vero in.",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Error consequatur, doloremque cum placeat nesciunt qui libero corrupti modi voluptates laborum et, odio culpa. Sint tenetur, quibusdam, sunt nobis doloribus eum reiciendis in recusandae, rem animi perferendis suscipit. Ad?"
     },
     {
         "title": "Molestiae delectus totam officiis!",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Maxime recusandae animi et nulla. Cum, ad, tempore eum sequi assumenda autem commodi eligendi nihil quisquam molestiae labore architecto deleniti omnis laboriosam esse! Ducimus, nostrum quae alias debitis et porro."
     },
     {
         "title": "Maxime corrupti esse voluptatum.",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Dolores aliquid deleniti quos, dolore incidunt distinctio quia mollitia aspernatur perferendis, eum quidem! Fugiat nobis qui quod quidem asperiores, iure reprehenderit magni corrupti repudiandae quis corporis praesentium, hic voluptatibus atque."
     },
     {
         "title": "Dolor a ea quod.",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Natus harum suscipit similique laudantium repudiandae laboriosam dicta consequatur rerum quo, saepe sapiente sunt molestiae amet deleniti non voluptates quidem, deserunt officiis sed rem doloremque. Aliquam ipsum officia omnis dolor."
     },
     {
         "title": "Beatae reiciendis veniam animi!",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Reiciendis sed pariatur rem magnam illum vero odio, ad nobis. Aperiam temporibus excepturi quidem nihil! Distinctio perferendis sunt beatae nulla esse. Praesentium, consequatur deleniti voluptate repellendus fugiat dignissimos mollitia velit."
     },
     {
         "title": "Placeat ipsum quasi consectetur?",
+        "year": "2024",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Vel ullam magnam sit ea architecto vero consectetur quidem quas dignissimos, explicabo suscipit, ipsum nostrum consequuntur tempore beatae ut iusto. Consectetur voluptas eaque, a doloremque perferendis dicta placeat incidunt qui."
     }

@@ -149,36 +149,47 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   }
 
   for (const proj of projects) {
-    const article = document.createElement('article');
+  const article = document.createElement('article');
 
-    const headingEl = document.createElement(HEADING);
-    headingEl.textContent = proj?.title ?? 'Untitled project';
-    article.append(headingEl);
+  const headingEl = document.createElement(HEADING);
+  headingEl.textContent = proj?.title ?? 'Untitled project';
+  article.append(headingEl);
 
-    const src = proj?.image?.trim();
-    if (src) {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = proj?.alt ?? proj?.title ?? 'Project image';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      article.append(img);
-    } else {
-      const ph = document.createElement('div');
-      ph.className = 'img-placeholder';
-      ph.setAttribute('aria-hidden', 'true');
-      ph.textContent = 'Image coming soon';
-      article.append(ph);
-    }
-
-    if (proj?.description) {
-      const p = document.createElement('p');
-      p.textContent = proj.description;
-      article.append(p);
-    }
-
-    containerElement.append(article);
+  const src = proj?.image?.trim();
+  if (src) {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = proj?.alt ?? proj?.title ?? 'Project image';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    article.append(img);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'img-placeholder';
+    ph.setAttribute('aria-hidden', 'true');
+    ph.textContent = 'Image coming soon';
+    article.append(ph);
   }
+
+  const body = document.createElement('div');
+  body.className = 'project-body';
+
+  if (proj?.description) {
+    const p = document.createElement('p');
+    p.textContent = proj.description;
+    body.append(p);
+  }
+
+  if (proj?.year) {
+    const y = document.createElement('p');
+    y.className = 'project-year';
+    y.innerHTML = `c. <span>${proj.year}</span>`;
+    body.append(y);
+  }
+
+  article.append(body);
+  containerElement.append(article);
+}
 
   return projects.length;
 }

@@ -309,3 +309,189 @@ form button:active {
 }
 .stats-grid dt { grid-row: 1; font-weight: 600; }
 .stats-grid dd { grid-row: 2; margin: 0; font-variant-numeric: tabular-nums; }
+
+.project-body {
+  display: grid;
+  gap: .5rem;
+}
+
+.project-year {
+  margin: .1rem 0 0;
+  color: oklch(60% 0.03 240 / 70%);
+  font-family: Baskerville, "Libre Baskerville", Georgia, serif;
+  font-style: italic;
+}
+
+.project-year span {
+  font-variant-numeric: oldstyle-nums;
+}
+
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+  display: block; 
+}
+
+
+ul.legend {
+  list-style: none;
+  margin: 1rem 0 2rem;
+  padding: .75rem;
+  border: 1px solid oklch(60% 0.03 240 / 40%);
+  border-radius: .5rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: .75rem 1rem; 
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  white-space: nowrap;
+}
+
+.legend-item .swatch {
+  width: 0.9em;
+  height: 0.9em;
+  aspect-ratio: 1 / 1;
+  background: var(--color);
+  border-radius: .2em;   
+  display: inline-block;
+  border: 1px solid oklch(40% 0.03 240 / 40%);
+}
+
+.legend-item em {
+  font-style: normal;
+  color: oklch(50% 0.03 240 / 80%);
+  font-variant-numeric: oldstyle-nums;
+}
+
+.pie-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* center the whole group */
+  gap: 1rem;
+  flex-wrap: wrap;           /* stack on small screens */
+  margin-block-start: clamp(2rem, 3vw, 3rem);
+  margin-block-end: 2rem;
+}
+
+.pie-wrap > *{
+  flex: 0 0 auto;
+}
+
+/* Pie size */
+#projects-pie-plot{
+  max-width: 16rem;          /* tweak to taste */
+  display: block;
+  overflow: visible;
+}
+
+/* Legend should fit content, not fill the row */
+.legend{
+  flex: 0 0 auto;
+  width: auto;               /* cancels any previous flex:1/basis */
+  margin: 0;                 /* avoid extra left offset */
+}
+
+
+.searchBar {
+  width: 100%;
+  max-width: 40rem;
+  padding: .6rem .75rem;
+  border: 1px solid var(--nav-border);
+  border-radius: .5rem;
+  margin: 0 0 1rem 0;
+  background: canvas;
+  color: canvastext;
+}
+.searchBar:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-color: var(--color-accent);
+}
+
+#projects-pie-plot .slice {
+  transition: opacity 200ms, transform 200ms;
+  cursor: pointer;
+}
+
+#projects-pie-plot:has(.slice:hover) .slice:not(:hover) {
+  opacity: 0.5;
+}
+
+#projects-pie-plot .slice:hover {
+  transform: scale(1.02);
+  transform-origin: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #projects-pie-plot .slice { transition: none; }
+}
+
+#projects-pie-plot .slice { cursor: pointer; transition: opacity 200ms, transform 200ms; }
+
+/* dim non-hovered only when a real slice is hovered */
+#projects-pie-plot:has(.slice:hover) .slice:not(:hover) { opacity: .5; }
+
+/* selected state (override the per-slice --color coming from inline style) */
+.selected { --color: oklch(60% 0.20 25) !important; }     /* pick any distinct color */
+#projects-pie-plot .slice.selected { fill: var(--color); }
+
+/* make the legend reflect selection too */
+.legend li { cursor: pointer; }
+.legend li.selected { font-weight: 700; }
+.legend li.selected .swatch { background: var(--color); border-color: var(--color); }
+
+/* optional: subtle lift on hover */
+#projects-pie-plot .slice:hover { transform: scale(1.02); transform-origin: 0 0; }
+
+
+.legend{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(10em,1fr));
+  gap:.75rem 2rem;
+  padding:1rem;
+  border:1px solid color-mix(in oklch, canvastext, canvas 85%);
+  border-radius:.75rem;
+}
+
+.legend li{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+
+.legend .swatch{
+  width:1.1rem;
+  height:1.1rem;
+  border-radius:50%;
+  background:var(--color);
+}
+
+#projects-pie-plot path.slice{
+  transition: transform .18s ease, opacity .18s ease, stroke-width .18s ease;
+}
+
+/* Dim siblings only when hovering */
+#projects-pie-plot:has(path.slice:hover) path.slice:not(:hover):not(.selected){
+  opacity: .55;
+}
+
+/* Selected slice keeps its fill color, gets a ring + glow */
+#projects-pie-plot path.slice.selected{
+  stroke: white;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.4));
+}
+
+/* Legend selected state */
+.legend li.selected{
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: .5rem;
+  background: color-mix(in oklch, var(--color), canvas 85%);
+}
