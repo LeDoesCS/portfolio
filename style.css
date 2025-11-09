@@ -372,9 +372,9 @@ ul.legend {
 .pie-wrap{
   display: flex;
   align-items: center;
-  justify-content: center;   /* center the whole group */
+  justify-content: center;  
   gap: 1rem;
-  flex-wrap: wrap;           /* stack on small screens */
+  flex-wrap: wrap;       
   margin-block-start: clamp(2rem, 3vw, 3rem);
   margin-block-end: 2rem;
 }
@@ -383,18 +383,16 @@ ul.legend {
   flex: 0 0 auto;
 }
 
-/* Pie size */
 #projects-pie-plot{
-  max-width: 16rem;          /* tweak to taste */
+  max-width: 16rem;      
   display: block;
   overflow: visible;
 }
 
-/* Legend should fit content, not fill the row */
 .legend{
   flex: 0 0 auto;
-  width: auto;               /* cancels any previous flex:1/basis */
-  margin: 0;                 /* avoid extra left offset */
+  width: auto;  
+  margin: 0; 
 }
 
 
@@ -434,19 +432,15 @@ ul.legend {
 
 #projects-pie-plot .slice { cursor: pointer; transition: opacity 200ms, transform 200ms; }
 
-/* dim non-hovered only when a real slice is hovered */
 #projects-pie-plot:has(.slice:hover) .slice:not(:hover) { opacity: .5; }
 
-/* selected state (override the per-slice --color coming from inline style) */
-.selected { --color: oklch(60% 0.20 25) !important; }     /* pick any distinct color */
+.selected { --color: oklch(60% 0.20 25) !important; }  
 #projects-pie-plot .slice.selected { fill: var(--color); }
 
-/* make the legend reflect selection too */
 .legend li { cursor: pointer; }
 .legend li.selected { font-weight: 700; }
 .legend li.selected .swatch { background: var(--color); border-color: var(--color); }
 
-/* optional: subtle lift on hover */
 #projects-pie-plot .slice:hover { transform: scale(1.02); transform-origin: 0 0; }
 
 
@@ -476,22 +470,169 @@ ul.legend {
   transition: transform .18s ease, opacity .18s ease, stroke-width .18s ease;
 }
 
-/* Dim siblings only when hovering */
 #projects-pie-plot:has(path.slice:hover) path.slice:not(:hover):not(.selected){
   opacity: .55;
 }
 
-/* Selected slice keeps its fill color, gets a ring + glow */
 #projects-pie-plot path.slice.selected{
   stroke: white;
   stroke-width: 4;
   filter: drop-shadow(0 0 6px rgba(255,255,255,.4));
 }
 
-/* Legend selected state */
 .legend li.selected{
   outline: 2px solid currentColor;
   outline-offset: 2px;
   border-radius: .5rem;
   background: color-mix(in oklch, var(--color), canvas 85%);
+}
+
+#stats {
+  margin-block: 2rem;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid oklch(80% 3% 200 / 40%);
+  background-color: canvas;
+}
+
+#stats > h2 {
+  font-size: 1.75rem;
+  margin: 0 0 1rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 1rem 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.stats dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: oklch(65% 2% 250);
+  margin: 0 0 0.25rem;
+}
+
+.stats dd {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.gridlines line {
+  stroke: currentColor;
+  opacity: 0.15; 
+}
+
+.gridlines path {
+  display: none;
+}
+
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.75rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  max-width: 22rem;
+}
+
+.tooltip {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+
+  background-color: rgba(20, 20, 20, 0.9);  
+  color: white;      
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px); 
+  pointer-events: none;  
+  z-index: 999;
+}
+
+dl.info dt {
+  margin: 0;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+dl.info dd {
+  margin: 0;
+}
+
+
+dl.info {
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+}
+
+dl.info[hidden] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes marching-ants {
+  to {
+    stroke-dashoffset: -8; /* 5 + 3 */
+  }
+}
+
+.selection {
+  fill-opacity: 0.1;
+  stroke: black;
+  stroke-opacity: 0.7;
+  stroke-dasharray: 5 3;
+  animation: marching-ants 2s linear infinite;
+}
+
+circle.selected {
+  fill: #ff6b6b;
+}
+
+#selection-count {
+  margin-top: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+#language-breakdown {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem 0.75rem;
+  text-align: center;
+}
+
+#language-breakdown dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: oklch(70% 0.03 250 / 0.9);
+  margin: 0;
+}
+
+#language-breakdown dd {
+  margin: 0.2rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+#language-breakdown .lang-lines {
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+#language-breakdown .lang-percent {
+  font-size: 0.9rem;
+  color: oklch(70% 0.03 250 / 0.8);
 }
