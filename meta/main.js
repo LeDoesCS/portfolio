@@ -86,7 +86,7 @@ function renderScatterPlot(data, commits) {
 
   const width = 1000;
   const height = 600;
-  const margin = { top: 10, right: 20, bottom: 40, left: 50 };
+  const margin = { top: 10, right: 0, bottom: 30, left: 20 };
 
   const usableArea = {
     top: margin.top,
