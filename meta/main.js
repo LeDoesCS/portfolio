@@ -86,7 +86,7 @@ function renderScatterPlot(data, commits) {
 
   const width = 1000;
   const height = 600;
-  const margin = { top: 10, right: 10, bottom: 40, left: 50 };
+  const margin = { top: 10, right: 20, bottom: 40, left: 50 };
 
   const usableArea = {
     top: margin.top,
@@ -104,11 +104,12 @@ function renderScatterPlot(data, commits) {
     .style('max-width', '100%')
     .style('height', 'auto');
 
-  const xScale = d3
-    .scaleTime()
-    .domain(d3.extent(commits, d => d.datetime))
-    .nice()
-    .range([usableArea.left, usableArea.right]);
+    const [minDateRaw, maxDateRaw] = d3.extent(commits, d => d.datetime);
+
+    const xScale = d3.scaleTime()
+  .domain([minDateRaw, maxDateRaw])
+  .nice()
+  .range([usableArea.left, usableArea.right]);
 
   const yScale = d3
     .scaleLinear()
@@ -133,9 +134,15 @@ function renderScatterPlot(data, commits) {
       .tickSize(-usableArea.width)
   );
 
-  const xAxis = d3.axisBottom(xScale)
-    .ticks(d3.timeDay.every(2))
-    .tickFormat(d3.timeFormat('%b %d'));
+  const monthStart = d3.timeMonth.floor(minDateRaw); 
+const xTickValues = d3.timeDay.range(
+  monthStart,
+  d3.timeDay.offset(maxDateRaw, 2),
+  2 );
+
+const xAxis = d3.axisBottom(xScale)
+  .tickValues(xTickValues)
+  .tickFormat(d3.timeFormat('%b %d'));
 
   const yAxis = d3.axisLeft(yScale)
     .tickValues([0, 6, 12, 18, 24])
@@ -171,7 +178,6 @@ function renderScatterPlot(data, commits) {
       updateTooltipVisibility(false);
     });
 
-  // ---------- brushing helpers (capturing xScale, yScale, commits) ----------
 
   function isCommitSelected(selection, commit) {
     if (!selection) return false;
@@ -256,7 +262,6 @@ function renderScatterPlot(data, commits) {
     .attr('class', 'brush')
     .call(brush);
 
-  // keep dots above overlay so hover/tooltip works
   svg.selectAll('.dots, .overlay ~ *').raise();
 }
 
