@@ -6,35 +6,40 @@
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-
   <main>
     <h1>Code statistics</h1>
-    <p>This page will show stats about my codebase using the elocuent tool.</p>
 
-  <div class="time-row">
-    <label for="commit-progress">Show commits until:</label>
-    <input id="commit-progress" type="range" min="0" max="100" value="100" />
-    <time id="commit-time" datetime=""></time>
-  </div>
-    
+    <div id="scrolly-1">
+      <div id="scatter-story">
+        <p>Scroll to walk through commit activity over time.</p>
+    </div>
+
+    <div id="scatter-plot">
     <div id="stats"></div>
-    <script type="module" src="./main.js"></script>
-    <h2>Commits by time of day</h2>
     <div id="chart"></div>
+    </div>
+  
+</div>
 
-    <dl id="commit-tooltip" class="info tooltip" hidden>
-        <dt>Commit</dt>
-        <dd>
-            <a href="" id="commit-link" target="_blank"></a>
-        </dd>
+<div class="commit-filter">
+      <label for="commit-progress">Show commits until:</label>
+      <input id="commit-progress" type="range" min="0" max="100" value="100" />
+      <time id="commit-time" datetime=""></time>
+    </div>
 
-        <dt>Date</dt>
-        <dd id="commit-date"></dd>
+<dl id="commit-tooltip" class="info tooltip" hidden> … </dl>
+<p id="selection-count">No commits selected</p>
+<h2>Languages in selection</h2>
+<dl id="language-breakdown" class="stats"></dl>
 
-    </dl>
-        <p id="selection-count">No commits selected</p>
-        <h2>Languages in selection</h2>
-    <dl id="language-breakdown" class="stats"></dl>
+<section id="files-section">
+  <h2>Files</h2>
+  <dl id="files"></dl>
+</section>
+
+
+
+    <script type="module" src="./main.js"></script>
   </main>
 
   <script type="module" src="../global.js"></script>

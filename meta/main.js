@@ -1,4 +1,5 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
 
 async function loadData() {
   const data = await d3.csv('loc.csv', (row) => ({
@@ -40,7 +41,7 @@ function processCommits(data) {
       });
 
       return ret;
-    });
+    }).sort((a, b) => a.datetime - b.datetime);
 }
 
 let commitProgress = 100; 
@@ -93,7 +94,7 @@ function renderScatterPlot(data, commits) {
 
   const width = 1000;
   const height = 600;
-  const margin = { top: 10, right: 0, bottom: 30, left: 20 };
+  const margin = { top: 10, right: 30, bottom: 30, left: 0 };
 
   const usableArea = {
     top: margin.top,
@@ -281,7 +282,7 @@ function updateScatterPlot(commitsFiltered) {
   if (svg.empty()) return;
 
   const width = 1000, height = 600;
-  const margin = { top: 10, right: 0, bottom: 30, left: 20 };
+  const margin = { top: 10, right: 30, bottom: 30, left: 0 };
   const usableArea = {
     top: margin.top,
     right: width - margin.right,
@@ -386,6 +387,9 @@ function updateTooltipPosition(event) {
 }
 
 const data = await loadData();
+const typeColor = d3
+  .scaleOrdinal(d3.schemeTableau10)
+  .domain(d3.union(data.map(d => d.type)));
 const commits = processCommits(data);
 
 renderCommitInfo(data, commits);
@@ -400,6 +404,52 @@ commitMaxTime = timeScale.invert(commitProgress);
 
 const sliderEl = document.getElementById('commit-progress');
 const timeEl   = document.getElementById('commit-time');
+
+function updateFileDisplay(filteredCommits) {
+  const lines = filteredCommits.flatMap(d => d.lines);
+  const files = d3
+    .groups(lines, d => d.file)
+    .map(([name, lines]) => ({ name, lines }))
+    .sort((a, b) => b.lines.length - a.lines.length);
+
+  const rows = d3.select('#files')
+    .selectAll('div.file-row')
+    .data(files, d => d.name)
+    .join(
+      enter => enter.append('div')
+        .attr('class', 'file-row')
+        .call(div => {
+          const dt = div.append('dt');
+          dt.append('code');     
+          dt.append('small');    
+          div.append('dd');    
+        }),
+      update => update,
+      exit => exit.remove()
+    );
+
+  rows.select('dt > code').text(d => d.name);
+  rows.select('dt > small').text(d => `${d.lines.length} lines`);
+
+  rows.select('dd')
+    .selectAll('div.loc')
+    .data(d => d.lines, (line, i) => i)  
+    .join(
+      enter => enter.append('div')
+        .attr('class', 'loc')
+        .style('--color', line => typeColor(line.type))
+        .style('opacity', 0)
+        .each(function(){ this.offsetWidth; })
+        .style('opacity', 1),
+      update => update,
+      exit => exit
+        .style('opacity', 0)
+        .remove()
+    );
+}
+
+updateFileDisplay(commits);
+
 
 function onTimeSliderChange() {
   commitProgress = Number(sliderEl.value);
@@ -416,7 +466,86 @@ function onTimeSliderChange() {
   const el = document.getElementById('stat-commits');
   if (el) el.textContent = fmtInt(filteredCommits.length);
   updateScatterPlot(filteredCommits);
+  updateFileDisplay(filteredCommits);
 }
 
 sliderEl.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange();
+
+
+function renderCommitSteps(commits) {
+  const stepSel = d3
+    .select('#scatter-story')
+    .selectAll('.step')
+    .data(commits, d => d.id);
+
+  stepSel.join(
+    enter => enter
+      .append('div')
+      .attr('class', 'step')
+      .attr('data-progress', d => timeScale(d.datetime))
+      .html(d => {
+        const filesTouched = d3.rollups(
+          d.lines,
+          v => v.length,
+          r => r.file
+        ).length;
+
+        return `
+          <p>
+            On ${d.datetime.toLocaleString('en', {
+              dateStyle: 'full',
+              timeStyle: 'short',
+            })},
+            I made <a href="${d.url}" target="_blank" rel="noopener">another glorious commit</a>.
+            I edited <strong>${d.totalLines}</strong> lines across <strong>${filesTouched}</strong> files.
+            Then I looked over all I had made, and it was very good.
+          </p>
+        `;
+      })
+  );
+}
+
+function initScrolly(allCommits) {
+  const scroller = scrollama();
+
+  scroller
+    .setup({
+      container: '#scrolly-1',
+      step: '#scatter-story .step',
+      offset: 0.6,
+      debug: false,
+    })
+    .onStepEnter((response) => {
+      d3.selectAll('#scatter-story .step').classed('is-active', false);
+      d3.select(response.element).classed('is-active', true);
+
+      const d = response.element.__data__;
+
+      commitProgress = timeScale(d.datetime);
+      sliderEl.value = commitProgress;
+
+      commitMaxTime = d.datetime;
+      timeEl.dateTime = commitMaxTime.toISOString();
+      timeEl.textContent = commitMaxTime.toLocaleString('en', {
+        dateStyle: 'long',
+        timeStyle: 'short',
+      });
+
+      const filtered = allCommits.filter(c => c.datetime <= commitMaxTime);
+
+      updateScatterPlot(filtered);
+
+      const fmtInt = d3.format(",");
+      const el = document.getElementById('stat-commits');
+      if (el) el.textContent = fmtInt(filtered.length);
+
+      updateFileDisplay(filtered);
+    });
+
+  window.addEventListener('resize', () => scroller.resize());
+}
+
+renderCommitSteps(commits);
+initScrolly(commits);
+
